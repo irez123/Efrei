@@ -1,82 +1,58 @@
-# API Users
+# API Albums et Photos
 
-## Overview
-The API allows users to retrieve all of the users of the application in micro service through a REST architecture. This API will be mainly used for registed Accounts.
+Cette API fournit des endpoints pour gérer des albums et des photos. Les utilisateurs peuvent créer, lire, mettre à jour et supprimer des albums et des photos associées à ces albums.
 
-It will also create own users to recover data to the platform but is in no way related to the users collected via the crawling of profiles on Social Networks.
+## Fonctionnalités
 
-### [POST] Create user
-Allows the creation of a single user.
+- Créer, lire, mettre à jour et supprimer des albums.
+- Créer, lire, mettre à jour et supprimer des photos associées aux albums.
+- Utiliser MongoDB pour le stockage des données.
 
-|                            |                  |
-|----------------------------|------------------|
-| Requires authentication ?  | No               |
-| Who can use it ?           | Owner and users  |
-| Response formats           | application/json |
+## Endpoints
 
-* HTTP request : POST → user/create
+### Albums
 
-#### Parameters :
-```javascript
-{
-  'firstname': String, // Optional
-  'lastname': Number, // Optional
-  'age': Number, // Optional
-  'city': String // Optional
-}
-```
+- **GET** `/albums`  
+  Récupérer la liste de tous les albums.
 
-#### Response :
-```javascript
-  {
-    id: Object_ID,
-    firstname: String,
-    lastname: String,
-    age: Number,
-    city: String
-  }
-```
+- **GET** `/albums/:id`  
+  Récupérer un album par son ID.
 
-### [POST] Show user
-Show an user by id.
+- **POST** `/albums`  
+  Créer un nouvel album.
 
-|                            |                  |
-|----------------------------|------------------|
-| Requires authentication ?  | No               |
-| Who can use it ?           | Owner and users  |
-| Response formats           | application/json |
+- **PUT** `/albums/:id`  
+  Mettre à jour un album existant.
 
-* HTTP request : GET → user/show/:id
+- **DELETE** `/albums/:id`  
+  Supprimer un album par son ID.
 
-#### Parameters :
-```javascript
-{
-  id: String // Required
-}
-```
+### Photos
 
-#### Response :
-```javascript
-  {
-    id: Object_ID,
-    firstname: String,
-    lastname: String,
-    age: Number,
-    city: String
-  }
-```
+- **GET** `/albums/:albumId/photos`  
+  Récupérer toutes les photos d'un album spécifique.
 
-### Requirements
-* node 18
-* npm or yarn or pnpm
-* git
-* mongodb (please configure config.js for link mongodb)
+- **GET** `/albums/:albumId/photos/:photoId`  
+  Récupérer une photo spécifique par son ID.
 
-### Install
-```npm i```
+- **POST** `/albums/:albumId/photos`  
+  Ajouter une nouvelle photo à un album.
 
-### Production mode
-```npm run prod```
+- **PUT** `/albums/:albumId/photos/:photoId`  
+  Mettre à jour une photo existante.
 
-### Dev mode
-```npm run dev```
+- **DELETE** `/albums/:albumId/photos/:photoId`  
+  Supprimer une photo spécifique d'un album.
+
+## Prise en Main
+
+### Prérequis
+
+- Node.js
+- MongoDB
+
+### Installation
+
+1. Clonez le dépôt :
+   ```bash
+   git clone https://github.com/Lalamax/API.git

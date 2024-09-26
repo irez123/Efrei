@@ -8,7 +8,11 @@ import helmet from 'helmet';
 
 // Core
 import config from './config.mjs';
-import routes from './controllers/routes.mjs';
+import routes from './controllers/routes.mjs'; // Cela devrait inclure tous vos contrôleurs, y compris les nouveaux
+
+// Importation des contrôleurs supplémentaires
+import AlbumsController from './controllers/album.mjs';
+import PhotosController from './controllers/photo.mjs';
 
 const Server = class Server {
   constructor() {
@@ -70,6 +74,9 @@ const Server = class Server {
 
   routes() {
     new routes.Users(this.app, this.connect);
+
+    new AlbumsController(this.app, this.connect);
+    new PhotosController(this.app, this.connect);
 
     this.app.use((req, res) => {
       res.status(404).json({
